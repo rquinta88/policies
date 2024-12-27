@@ -18,7 +18,7 @@ jobs:
       - name: Trigger Workflow in Another Repository
         run: |
           # Set the required variables
-          repo_owner="r88quinta" 
+          repo_owner="rquinta88" 
           repo_name="cookie-poc"  
           event_type="trigger-workflow" 
           service="${{ github.event.inputs.target_service }}"
