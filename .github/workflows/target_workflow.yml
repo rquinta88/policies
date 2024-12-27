@@ -24,15 +24,14 @@ jobs:
           # Set the required variables
           repo_owner="rquinta88" 
           repo_name="cookie-poc"  
-          event_type="trigger-workflow" 
-          if (${{ github.event_name }} -eq 'workflow_dispatch') {
-              service="${{ github.event.inputs.target_service }}"
-              version="${{ github.event.inputs.target_version }}"
-            } else {
-              # Default values for push events
-              $service_name = "default-service-name"
-              $version = "default-version"
-            }
+          event_type="trigger-workflow"
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            service_name="${{ github.event.inputs.target_service }}"
+            version="${{ github.event.inputs.target_version }}"
+          else
+            service_name="default-service-name"
+            version="default-version"
+          fi
           
   
           curl -L \
