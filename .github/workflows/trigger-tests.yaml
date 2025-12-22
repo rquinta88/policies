@@ -25,8 +25,8 @@ jobs:
           environment="staging"
           mode="PR"
           author="${{ github.actor }}"
-          run_number= ${{ github.run_number }}
-          commit_sha= "${{ github.sha }}"
+          run_number="${{ github.run_number }}"
+          commit_sha="${{ github.sha }}"
           repo_name="${{ github.repository }}"
   
           curl -L \
