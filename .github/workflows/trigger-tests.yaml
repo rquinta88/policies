@@ -21,7 +21,7 @@ jobs:
           expected="gitsha.0b00e52f6ad2b19252d86d3b568f23135a24c453"
           for i in {1..20}; do
             # Fetch the version field from the API response
-            version=$(curl -s https://api-test.axept.io/v1 | jq -r .version)
+            version=$(curl -s https://api-test.axept.io/v2 | jq -r .version)
 
             if [ "$version" = "$expected" ]; then
               echo "✅ New version is live: $version"
