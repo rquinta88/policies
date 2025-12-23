@@ -23,7 +23,7 @@ jobs:
             # Fetch the version field from the API response
             version=$(curl -s https://api-test.axept.io/v1 | jq -r .version)
 
-            if [ "$version" = "gitsha.${{ github.sha }}" ]; then
+            if [ "$version" = "$expected" ]; then
               echo "✅ New version is live: $version"
               exit 0
             fi
