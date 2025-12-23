@@ -15,6 +15,27 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Wait for new API version
+        run: |
+          echo "Waiting for API to serve commit ${{ github.sha }}..."
+          expected="gitsha.0b00e52f6ad2b19252d86d3b568f23135a24c453"
+          for i in {1..20}; do
+            # Fetch the version field from the API response
+            version=$(curl -s https://api-test.axept.io/v1 | jq -r .version)
+
+            if [ "$version" = "gitsha.${{ github.sha }}" ]; then
+              echo "✅ New version is live: $version"
+              exit 0
+            fi
+
+            echo "Still old version ($version), retrying in 10s..."
+            sleep 10
+            expected="gitsha.0b00e52f6ad2b19252d86d3b568f23135a24c883"
+          done
+
+          echo "❌ Timed out waiting for new version"
+          exit 1
+    
       - name: Trigger Workflow in Another Repository
         run: |
           # Set the required variables
